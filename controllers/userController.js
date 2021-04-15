@@ -23,25 +23,27 @@ exports.newUser = async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(password, salt);
 
-    await user.save();
-
-    const payload = {
-      user: {
-        id: user.id,
-      },
-    };
-
-    jwt.sign(
-      payload,
-      process.env.SECRETA,
-      {
-        expiresIn: 3600, //1 Hour
-      },
-      (error, token) => {
-        if (error) throw error;
-        res.json({ token });
+    user.save((error, datos) => {
+      if (error) {
+        res.status(422).send("Falta la trajeta profesional");
       }
-    );
+      const payload = {
+        user: {
+          id: user.id,
+        },
+      };
+      jwt.sign(
+        payload,
+        process.env.SECRETA,
+        {
+          expiresIn: 3600, //1 Hour
+        },
+        (error, token) => {
+          if (error) throw error;
+          res.json({ token });
+        }
+      );
+    });
   } catch (error) {
     console.log(error);
     res.status(400).send("Hubo un error");

@@ -21,7 +21,9 @@ const UserSchema = mongoose.Schema({
     type: String,
     trim: true,
     required:function() {  
-      return this.cargo !== 'enfermera'
+      console.log(this.cargo)
+      return this.cargo !=='enfermera'
+      
     },
     unique:true
   },
