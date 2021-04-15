@@ -2,31 +2,43 @@ const mongoose = require ('mongoose');
 
 const UserSchema = mongoose.Schema({
   name: {
-    type: "string",
+    type: String,
     required: true,
     trim: true,
   },
   identification: {
-    type: "string",
+    type: String,
     required: true,
     trim: true,
+  },
+  cargo:{
+    type: String,
+    enum:['enfermera', 'Medico Especialista', 'Medico General'],
+    trim: true,
+    required: true
   },
   tp: {
-    type: "string",
+    type: String,
     trim: true,
+    required:function() {  
+      return this.cargo !== 'enfermera'
+    },
     unique:true
   },
+
   email: {
-    type: "string",
+    type: String,
     required: true,
     trim: true,
     unique:true
   },
+
   password: {
-    type: "string",
+    type: String,
     required: true,
     trim: true,
   },
+
   record: {
     type: Date,
     default: Date.now(),

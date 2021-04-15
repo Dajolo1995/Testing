@@ -12,19 +12,19 @@ exports.authUser = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    let usuario = await User.findOne({ email });
-    if (!usuario) {
+    let user = await User.findOne({ email });
+    if (!user) {
       return res.status(400).json({ msg: "El usuario no existe" });
     }
 
-    const passCorrecto = await bcrypt.compare(password, usuario.password);
+    const passCorrecto = await bcrypt.compare(password, user.password);
     if (!passCorrecto) {
       return res.status(400).json({ msg: "Password Incorrecto" });
     }
 
     const payload = {
-      usuario: {
-        id: usuario.id,
+      user: {
+        id: user.id,
       },
     };
 
