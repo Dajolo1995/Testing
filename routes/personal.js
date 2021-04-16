@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const userController = require ('../controllers/userController');
+const personalController = require ('../controllers/personalController');
 const { check } = require ('express-validator');
 
 router.post('/',
@@ -11,7 +11,7 @@ router.post('/',
         check('email', 'El correo el electronico es importante').isEmail(),
         check('password', 'El password debe ser minimo 6 caracteres').isLength({min: 6})
     ],
-    userController.newUser
+    personalController.newPersonal
 )
 
 module.exports = router

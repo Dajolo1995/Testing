@@ -1,6 +1,6 @@
 const mongoose = require ('mongoose');
 
-const QuotesSchema = mongoose.Schema({
+const CitaSchema = mongoose.Schema({
 
     cita:{
         type:String,
@@ -11,15 +11,19 @@ const QuotesSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Patient'
     },
-    personal:{
+    
+    employees:{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'Personal'
+    },
+    date:{
+        type: Date
     },
     record:{
         type: Date,
-        default: Date.now()  
+        default: Date.now()
     }
 
 })
 
-module.exports = mongoose.model('Quotes', QuotesSchema )
+module.exports = mongoose.model('Cita', CitaSchema )

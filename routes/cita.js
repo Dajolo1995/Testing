@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const quotesController = require('../controllers/quotesController')
+const citaController = require('../controllers/citaController')
 const auth = require("../middleware/auth");
 const { check } = require ('express-validator');
 
@@ -9,13 +9,13 @@ router.post('/',
     [
         check('cita', 'Agregue una cita').not().isEmpty()
     ],
-    quotesController.newQuotes
+    citaController.newCita
 )
 
 router.get('/', 
 
     auth,
-    quotesController.obtainQuotes
+    citaController.obtainCita
 )
 
 module.exports = router

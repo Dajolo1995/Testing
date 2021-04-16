@@ -11,7 +11,7 @@ module.exports = function(req, res, next){
 
     try {
       const encryption = jwt.verify(token, process.env.SECRETA);
-      req.user = encryption.user;
+      req.personal = encryption.personal;
       next();
     } catch (error) {
         res.status(401).json({msg: 'Token no valido'})

@@ -7,12 +7,12 @@ conectarDB();
 
 app.use(express.json({ extended:true }));
 
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 5000;
 
-app.use('/api/user', require('./routes/user'))
+app.use('/api/personal', require('./routes/personal'))
 app.use('/api/auth', require('./routes/auth'))
 app.use('/api/patient', require('./routes/patient'))
-app.use('/api/quotes', require ('./routes/quotes'))
+app.use('/api/cita', require ('./routes/cita'))
 
 
 app.listen(PORT, () => {

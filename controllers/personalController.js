@@ -1,9 +1,9 @@
-const User = require("../models/User");
+const Personal = require("../models/Personal");
 const bcrypt = require("bcrypt");
 const { validationResult } = require("express-validator");
 const jwt = require("jsonwebtoken");
 
-exports.newUser = async (req, res) => {
+exports.newPersonal = async (req, res) => {
   const mistakes = validationResult(req);
   if (!mistakes.isEmpty()) {
     return res.status(400).json({ mistakes: mistakes.array() });
@@ -12,25 +12,27 @@ exports.newUser = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    let user = await User.findOne({ email });
+    let personal = await Personal.findOne({ email });
 
-    if (user) {
+    if (personal) {
       return res.status(409).json({ msg: "El usuario ya existe" });
     }
 
-    user = new User(req.body);
+    personal = new Personal(req.body);
 
     const salt = await bcrypt.genSalt(10);
-    user.password = await bcrypt.hash(password, salt);
+    personal.password = await bcrypt.hash(password, salt);
 
-    user.save((error, datos) => {
+    personal.save((error, datos) => {
       if (error) {
         res.status(422).send("Falta la trajeta profesional");
       }
       const payload = {
-        user: {
-          id: user.id,
+        personal: {
+          id: personal.id,
+          
         },
+        
       };
       jwt.sign(
         payload,
